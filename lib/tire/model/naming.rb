@@ -30,7 +30,9 @@ module Tire
         def index_name name=nil, &block
           @index_name = name if name
           @index_name = block if block_given?
-          # TODO: Try to get index_name from ancestor classes
+          if klass.superclass.respond_to? :index_name
+            @index_name = klass.superclass.index_name
+          end
           @index_name || [index_prefix, klass.model_name.plural].compact.join('_')
         end
 
@@ -75,6 +77,9 @@ module Tire
         #
         def document_type name=nil
           @document_type = name if name
+          if klass.superclass.respond_to?(:document_type)
+            @document_type = klass.superclass.document_type
+          end
           @document_type || klass.model_name.to_s.underscore
         end
       end

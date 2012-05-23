@@ -54,7 +54,12 @@ module Tire
         #     end
         #
         def mapping(*args)
-          @mapping ||= {}
+          @mapping ||= 
+            if klass.superclass.respond_to?(:mapping)
+              klass.superclass.mapping
+            else
+              {}
+            end
           if block_given?
             @mapping_options = args.pop
             yield
