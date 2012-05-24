@@ -33,6 +33,19 @@ module Tire
       reset_variables.each { |v| instance_variable_set(v.to_sym, nil) }
     end
 
+    def self.callbacks_enabled(value=nil)
+      @callbacks_enabled = 
+        if value.nil?
+          if @callbacks_enabled.nil?
+            true
+          else
+            @callbacks_enabled
+          end
+        else
+          value
+        end
+    end
+
   end
 
 end
