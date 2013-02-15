@@ -57,10 +57,6 @@ module Tire
       end
       alias :[] :slice
 
-      def to_ary
-        self
-      end
-
       def as_json(options=nil)
         to_a.map { |item| item.as_json(options) }
       end
