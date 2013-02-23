@@ -33,6 +33,12 @@ module Tire
         end
 
       end
+      
+      def touch
+        r = super
+        tire.update_index if Tire::Configuration.callbacks_enabled
+        r
+      end
 
     end
 
